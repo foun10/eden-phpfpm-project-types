@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 
-if [[ ! -f "${htdocs_dir}/config.local.inc.php" ]]; then
+if [[ ! -f "${HTDOCS_DIR}/config.local.inc.php" ]]; then
 echo "create config.local.inc.php"
-cat <<EOF > ${htdocs_dir}/config.local.inc.php
+cat <<EOF > ${HTDOCS_DIR}/config.local.inc.php
 <?php
-\$this->dbHost = '${db_host}'; // database host name
-\$this->dbName = '${db_name}'; // database name
-\$this->dbUser = '${db_user}'; // database user name
-\$this->dbPwd = '${db_pass}'; // database user password
-\$this->sShopURL = 'http://${project_url}'; // eShop base url, required
-\$this->sSSLShopURL = 'https://${project_url}'; // eShop SSL url, optional
-\$this->sAdminSSLURL = 'https://${project_url}/admin'; // eShop Admin SSL url, optional
-\$this->sShopDir = '${htdocs_dir}';
-\$this->sCompileDir = '${htdocs_dir}/tmp';
+\$this->dbHost = '${DB_HOST}'; // database host name
+\$this->dbName = '${DB_NAME}'; // database name
+\$this->dbUser = '${DB_USER}'; // database user name
+\$this->dbPwd = '${DB_PASS}'; // database user password
+\$this->sShopURL = 'http://${PROJECT_URL}'; // eShop base url, required
+\$this->sSSLShopURL = 'https://${PROJECT_URL}'; // eShop SSL url, optional
+\$this->sAdminSSLURL = 'https://${PROJECT_URL}/admin'; // eShop Admin SSL url, optional
+\$this->sShopDir = '${HTDOCS_DIR}';
+\$this->sCompileDir = '${HTDOCS_DIR}/tmp';
 EOF
 fi
 
-if [[ ${user_mail} != '' ]] && [[ ${user_pass} != '' ]]; then
+if [[ ${USER_MAIL} != '' ]] && [[ ${USER_PASS} != '' ]]; then
     create_user_sql="
     INSERT INTO oxuser (
         OXID,
@@ -31,13 +31,13 @@ if [[ ${user_mail} != '' ]] && [[ ${user_pass} != '' ]]; then
         1,
         'malladmin',
         1,
-        '${user_mail}',
-        MD5('${user_pass}'),
+        '${USER_MAIL}',
+        MD5('${USER_PASS}'),
         ''
     ) ON DUPLICATE KEY UPDATE
-        OXUSERNAME='${user_mail}',
-        OXPASSWORD=MD5('${user_pass}'),
+        OXUSERNAME='${USER_MAIL}',
+        OXPASSWORD=MD5('${USER_PASS}'),
         OXPASSSALT=''
     "
-    mysql -h${db_host} -u${db_user} -p${db_pass} ${db_name} -e "${create_user_sql}"
+    mysql -h${DB_HOST} -u${DB_USER} -p${DB_PASS} ${DB_NAME} -e "${create_user_sql}"
 fi
