@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-if [[ ! -f "cust_config.inc.php" ]]; then
-echo "create cust_config.inc.php"
+if [[ ! -f "${htdocs_dir}/config.local.inc.php" ]]; then
+echo "create config.local.inc.php"
 cat <<EOF > ${htdocs_dir}/config.local.inc.php
 <?php
 \$this->dbHost = '${db_host}'; // database host name
