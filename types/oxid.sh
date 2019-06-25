@@ -8,7 +8,7 @@ cat <<EOF > ${HTDOCS_DIR}/config.local.inc.php
 \$this->dbName = '${DB_NAME}'; // database name
 \$this->dbUser = '${DB_USER}'; // database user name
 \$this->dbPwd = '${DB_PASS}'; // database user password
-\$this->sShopURL = 'http://${PROJECT_URL}'; // eShop base url, required
+\$this->sShopURL = 'https://${PROJECT_URL}'; // eShop base url, required
 \$this->sSSLShopURL = 'https://${PROJECT_URL}'; // eShop SSL url, optional
 \$this->sAdminSSLURL = 'https://${PROJECT_URL}/admin'; // eShop Admin SSL url, optional
 \$this->sShopDir = '${HTDOCS_DIR}';
