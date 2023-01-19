@@ -4,10 +4,9 @@ set -euo pipefail
 ACTION=${1}
 
 wait_for_db() {
-  echo "waiting for mysql service"
   while ! mysqladmin ping -h"${1}" --silent; do
-      echo -ne "."\\r
-      sleep 5
+    echo "Waiting for mysql service."
+    sleep 5
   done
 }
 
@@ -105,10 +104,8 @@ EOF
     DB_USER=${4}
     DB_PASS=${5}
 
-    wait_for_db "${DB_HOST}"
-
-    # Flush aModules database entry
     echo "Flush aModules database entry."
+    wait_for_db "${DB_HOST}"
     mysql -h"${DB_HOST}" -u"${DB_USER}" -p"${DB_PASS}" "${DB_NAME}" -e "UPDATE oxconfig SET OXVARNAME = 'aModules_old' WHERE OXVARNAME = 'aModules';"
     echo "Entries flushed."
     ;;
