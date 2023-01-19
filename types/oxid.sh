@@ -12,17 +12,18 @@ wait_for_db() {
 
 case $ACTION in
   CREATE_CONFIG)
-    FILE=${2}
-    DB_HOST=${3}
-    DB_NAME=${4}
-    DB_USER=${5}
-    DB_PASS=${6}
-    PROJECT_URL=${7}
+    DIR=${2}
+    FILE=${3}
+    DB_HOST=${4}
+    DB_NAME=${5}
+    DB_USER=${6}
+    DB_PASS=${7}
+    PROJECT_URL=${8}
 
-    if [[ ! -f "${FILE}" ]]; then
+    if [[ ! -f "${DIR}/${FILE}" ]]; then
       echo "Create config."
 
-      cat <<EOF > "${FILE}"
+      cat <<EOF > "${DIR}/${FILE}"
 <?php
 \$this->dbHost = '${DB_HOST}'; // database host name
 \$this->dbName = '${DB_NAME}'; // database name
