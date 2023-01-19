@@ -20,7 +20,7 @@ case $ACTION in
     PROJECT_URL=${7}
 
     if [[ ! -f "${DIR}/config.local.inc.php" ]]; then
-      echo "create config.local.inc.php"
+      echo "Create config.local.inc.php."
       cat <<EOF > "${DIR}/config.local.inc.php"
 <?php
 \$this->dbHost = '${DB_HOST}'; // database host name
@@ -40,8 +40,8 @@ EOF
     DB_NAME=${3}
     DB_USER=${4}
     DB_PASS=${5}
-    USER_MAIL=${5}
-    USER_PASS=${5}
+    USER_MAIL=${6}
+    USER_PASS=${7}
 
     wait_for_db "${DB_HOST}"
 
