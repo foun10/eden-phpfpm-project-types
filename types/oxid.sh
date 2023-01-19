@@ -12,16 +12,17 @@ wait_for_db() {
 
 case $ACTION in
   CREATE_CONFIG)
-    DIR=${2}
+    FILE=${2}
     DB_HOST=${3}
     DB_NAME=${4}
     DB_USER=${5}
     DB_PASS=${6}
     PROJECT_URL=${7}
 
-    if [[ ! -f "${DIR}/config.local.inc.php" ]]; then
-      echo "Create config.local.inc.php."
-      cat <<EOF > "${DIR}/config.local.inc.php"
+    if [[ ! -f "${FILE}" ]]; then
+      echo "Create config."
+
+      cat <<EOF > "${FILE}"
 <?php
 \$this->dbHost = '${DB_HOST}'; // database host name
 \$this->dbName = '${DB_NAME}'; // database name
@@ -34,6 +35,8 @@ case $ACTION in
 \$this->sCompileDir = '${DIR}/tmp';
 EOF
     fi
+
+    echo "Config created."
     ;;
   CREATE_USER)
     DB_HOST=${2}
@@ -107,6 +110,15 @@ EOF
     echo "Flush aModules database entry."
     wait_for_db "${DB_HOST}"
     mysql -h"${DB_HOST}" -u"${DB_USER}" -p"${DB_PASS}" "${DB_NAME}" -e "UPDATE oxconfig SET OXVARNAME = 'aModules_old' WHERE OXVARNAME = 'aModules';"
-    echo "Entries flushed."
+    echo "aModules flushed."
+    ;;
+  RECREATE_VIEWS)
+    FILE=${2}
+    CONSOLE_COMMAND=${3}
+
+    echo "Recreate views"
+    echo "\$this->blSkipViewUsage = true;" >> "${FILE}"
+    ${CONSOLE_COMMAND}
+    sed -i '$ d' "${FILE}"
     ;;
 esac
