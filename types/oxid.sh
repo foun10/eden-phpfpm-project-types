@@ -73,7 +73,7 @@ EOF
           OXPASSWORD=MD5('${USER_PASS}'),
           OXPASSSALT=''
       "
-    mysql -h${DB_HOST} -u${DB_USER} -p${DB_PASS} ${DB_NAME} -e "${create_user_sql}"
+    mysql -h"${DB_HOST}" -u"${DB_USER}" -p"${DB_PASS}" "${DB_NAME}" -e "${create_user_sql}"
 
     echo "User ${USER_MAIL} created."
     ;;
