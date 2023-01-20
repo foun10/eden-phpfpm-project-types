@@ -25,6 +25,8 @@ case $ACTION in
 
       cat <<EOF > "${DIR}/${FILE}"
 <?php
+\$this->dbType = 'pdo_mysql';
+\$this->dbCharset = 'utf8';
 \$this->dbHost = '${DB_HOST}'; // database host name
 \$this->dbName = '${DB_NAME}'; // database name
 \$this->dbUser = '${DB_USER}'; // database user name
