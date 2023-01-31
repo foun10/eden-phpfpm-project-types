@@ -122,6 +122,6 @@ EOF
     echo "Recreate views"
     echo "\$this->blSkipViewUsage = true;" >> "${FILE}"
     ${CONSOLE_COMMAND}
-    sed -i '$ d' "${FILE}"
+    tail -n 1 "${FILE}" | wc -c | xargs -I {} truncate "${FILE}" -s -{}
     ;;
 esac
